@@ -4,7 +4,7 @@ interface HomePageProps {}
 
 const HomePage: FunctionComponent<HomePageProps> = () => {
   return (
-    <div className="navbar">
+    <div className="homePage">
       <div className="container">HomePage</div>
     </div>
   );
