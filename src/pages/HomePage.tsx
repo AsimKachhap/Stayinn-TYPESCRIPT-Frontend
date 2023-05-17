@@ -7,12 +7,9 @@ interface HomePageProps {}
 const HomePage: FunctionComponent<HomePageProps> = () => {
   return (
     <div className="homePage">
-      <div className="container flex gap-4 min-w-full ">
-        <div className="bg-emerald-300 h-[400px] w-1/2"></div>
-        <div className="border border-red-400 max-h-[400px] w-[680px]">
-          <LeafletMap />
-          {/* <MapComponent /> */}
-        </div>
+      <div className="map-container max-h-[400px] w-full">
+        <LeafletMap />
+        {/* <MapComponent /> */}
       </div>
     </div>
   );
