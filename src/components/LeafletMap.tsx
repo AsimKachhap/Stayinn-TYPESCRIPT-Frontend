@@ -1,4 +1,4 @@
-import { FunctionComponent, useRef } from "react";
+import { FunctionComponent } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -10,9 +10,17 @@ import {
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 
-interface LeafletMapProps {}
+interface LeafletMapProps {
+  hotels: Array<{
+    name: string;
+    location: {
+      lat: number;
+      long: number;
+    };
+  }>;
+}
 
-const LeafletMap: FunctionComponent<LeafletMapProps> = () => {
+const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
   const AccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
   const mapboxId = import.meta.env.VITE_MAPBOX_STYLE_ID;
   const mapboxUrl = `https://api.mapbox.com/styles/v1/${mapboxId}/tiles/{z}/{x}/{y}@2x?access_token=${AccessToken}`;
@@ -22,9 +30,7 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = () => {
     iconSize: [40, 40],
   });
 
-  const popupRef = useRef();
-
-  console.log(popupRef);
+  console.log(hotels);
 
   return (
     <div>
@@ -40,14 +46,21 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = () => {
           id={mapboxId}
           accessToken={AccessToken}
         />
-        <Marker position={[28.6304, 77.2177]} icon={hotelMarker}>
-          {/* <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup> */}
-          <Tooltip permanent direction="top" offset={[0, -20]}>
-            17500
-          </Tooltip>
-        </Marker>
+
+        {hotels.map((hotel) => {
+          console.log(hotel.location.lat, hotel.location.long);
+          return (
+            <Marker
+              position={[hotel.location.lat, hotel.location.long]}
+              icon={hotelMarker}
+            >
+              <Popup>{hotel.name}</Popup>
+              <Tooltip permanent direction="top" offset={[0, -20]}>
+                17500
+              </Tooltip>
+            </Marker>
+          );
+        })}
       </MapContainer>
     </div>
   );
