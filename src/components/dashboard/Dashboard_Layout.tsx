@@ -7,7 +7,7 @@ interface Dashboard_Layout {}
 
 const Dashboard_Layout: FunctionComponent<Dashboard_Layout> = () => {
   return (
-    <div className="container">
+    <div className="container px-4 py-2">
       <div>
         <Topbar />
       </div>
