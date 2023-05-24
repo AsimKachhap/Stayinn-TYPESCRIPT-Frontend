@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -37,12 +37,37 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
   });
 
   const userLocation = useLocation();
-  console.log(userLocation);
+
+  const [center, setCenter] = useState<[number, number] | null>(null);
+
+  useEffect(() => {
+    const setMapCenter = () => {
+      if (userLocation.latitude !== null && userLocation.longitude !== null) {
+        setCenter([userLocation.latitude, userLocation.longitude]);
+        console.log("This code is executed");
+        console.log("userLocation:", userLocation);
+        console.log("center:", center);
+      }
+    };
+
+    setMapCenter();
+  }, [userLocation]);
+
+  useEffect(() => {
+    console.log("Center updated:", center);
+  }, [center]);
+
+  if (center == null) {
+    return null;
+  }
+
+  const lat = center ? center[0] : 28.6304;
+  const long = center ? center[1] : 77.2177;
 
   return (
     <div>
       <MapContainer
-        center={[28.6304, 77.2177]}
+        center={[lat, long]}
         zoom={13}
         scrollWheelZoom={false}
         style={{ height: 400 }}
@@ -55,7 +80,6 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
         />
 
         {hotels.map((hotel) => {
-          console.log(hotel.location.lat, hotel.location.long);
           return (
             <Marker
               position={[hotel.location.lat, hotel.location.long]}
