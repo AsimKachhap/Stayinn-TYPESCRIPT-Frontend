@@ -9,6 +9,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
+import useLocation from "../hooks/useLocation";
 
 interface LeafletMapProps {
   hotels: Array<{
@@ -30,7 +31,13 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
     iconSize: [40, 40],
   });
 
-  console.log(hotels);
+  const greenpinMarker = new Icon({
+    iconUrl: "/images/greenpin.png",
+    iconSize: [40, 40],
+  });
+
+  const userLocation = useLocation();
+  console.log(userLocation);
 
   return (
     <div>
@@ -61,6 +68,18 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
             </Marker>
           );
         })}
+
+        {userLocation.latitude === null ||
+        userLocation.longitude === null ? null : (
+          <Marker
+            position={[userLocation.latitude, userLocation.longitude]}
+            icon={greenpinMarker}
+          >
+            <Tooltip permanent direction="top" offset={[0, -20]}>
+              You are Here
+            </Tooltip>
+          </Marker>
+        )}
       </MapContainer>
     </div>
   );
