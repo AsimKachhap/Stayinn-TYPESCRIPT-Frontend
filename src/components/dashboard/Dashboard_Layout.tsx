@@ -12,10 +12,10 @@ const Dashboard_Layout: FunctionComponent<Dashboard_Layout> = () => {
         <Topbar />
       </div>
       <div className="flex gap-4">
-        <div className="flex-1">
+        <div className="flex-1 bg-lime-300">
           <Sidebar />
         </div>
-        <div className="flex-4">
+        <div className="flex-4 bg-amber-300">
           <Main_Area />
         </div>
       </div>
