@@ -2,7 +2,7 @@ import { FunctionComponent, useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
-  useMap,
+  Circle,
   Marker,
   Popup,
   Tooltip,
@@ -68,7 +68,7 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
     <div>
       <MapContainer
         center={[lat, long]}
-        zoom={13}
+        zoom={12}
         scrollWheelZoom={false}
         style={{ height: 400 }}
       >
@@ -104,6 +104,8 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
             </Tooltip>
           </Marker>
         )}
+
+        <Circle center={[lat, long]} radius={7500} stroke={false} />
       </MapContainer>
     </div>
   );
