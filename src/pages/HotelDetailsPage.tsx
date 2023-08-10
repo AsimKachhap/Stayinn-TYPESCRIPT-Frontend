@@ -1,9 +1,14 @@
 import { FunctionComponent } from "react";
+import PhotoGrid from "../components/PhotoGrid";
+import photoArray from "../dummydatas/photoArray";
 
-interface HotelDetailsPageProps {}
-
-const HotelDetailsPage: FunctionComponent<HotelDetailsPageProps> = () => {
-  return <div>HotelDetailsPage</div>;
+const HotelDetailsPage: FunctionComponent = () => {
+  return (
+    <div>
+      <h1>HotelDetailsPage</h1>
+      <PhotoGrid photos={photoArray} />
+    </div>
+  );
 };
 
 export default HotelDetailsPage;

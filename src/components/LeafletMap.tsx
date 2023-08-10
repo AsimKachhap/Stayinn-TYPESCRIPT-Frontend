@@ -10,10 +10,13 @@ import {
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import useLocation from "../hooks/useLocation";
+import { Link } from "react-router-dom";
 
 interface LeafletMapProps {
   hotels: Array<{
+    _id: string;
     name: string;
+    address: string;
     location: {
       lat: number;
       long: number;
@@ -30,6 +33,8 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
     iconUrl: "/images/hotel2.png",
     iconSize: [40, 40],
   });
+
+  console.log(hotels);
 
   const greenpinMarker = new Icon({
     iconUrl: "/images/greenpin.png",
@@ -85,7 +90,14 @@ const LeafletMap: FunctionComponent<LeafletMapProps> = ({ hotels }) => {
               position={[hotel.location.lat, hotel.location.long]}
               icon={hotelMarker}
             >
-              <Popup>{hotel.name}</Popup>
+              <Popup>
+                <Link
+                  className="font-semibold text-black underline"
+                  to={`hotels/${hotel._id}`}
+                >
+                  {hotel.name}
+                </Link>
+              </Popup>
               <Tooltip permanent direction="top" offset={[0, -20]}>
                 17500
               </Tooltip>
